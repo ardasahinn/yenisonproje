@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Magaza_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alisveris_Table">
+          <Key>
+            <PropertyRef Name="A_Id" />
+          </Key>
+          <Property Name="A_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="A_K_Id" Type="int" Nullable="false" />
+          <Property Name="A_Kas_Id" Type="int" Nullable="false" />
+          <Property Name="A_U_Barkod" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kart_Table">
+          <Key>
+            <PropertyRef Name="K_Id" />
+          </Key>
+          <Property Name="K_Id" Type="int" Nullable="false" />
+          <Property Name="K_Bakiye" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="K_Sahibi_Adı" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="K_Sahibi_Soyadı" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="K_Sahibi_Telefon" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="K_Sahibi_Adres" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="K_Sahibi_E_Posta" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="K_Sifre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kasa_Bilgi_Table">
+          <Key>
+            <PropertyRef Name="KB_Kasa_Id" />
+          </Key>
+          <Property Name="KB_Kasa_Id" Type="int" Nullable="false" />
+          <Property Name="KB_Kasa_Durum" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Magaza_DB.dbo.Kasa_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Kasa_Table">
+          <Key>
+            <PropertyRef Name="Kas_P_Id" />
+            <PropertyRef Name="Kas_Toplam_Hesap" />
+            <PropertyRef Name="Kas_Tarih" />
+          </Key>
+          <Property Name="Kas_P_Id" Type="int" Nullable="false" />
+          <Property Name="Kas_Toplam_Hesap" Type="int" Nullable="false" />
+          <Property Name="Kas_Tarih" Type="date" Nullable="false" />
+          <Property Name="Kas_Id" Type="int" />
+          <Property Name="Kas_Durum" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Market_Alim_Table">
+          <Key>
+            <PropertyRef Name="Mat_Id" />
+          </Key>
+          <Property Name="Mat_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mat_Tarih" Type="date" Nullable="false" />
+          <Property Name="Mat_Miktar" Type="int" Nullable="false" />
+          <Property Name="Mat_Ucret" Type="int" Nullable="false" />
+          <Property Name="Mat_U_Barkod" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Personel_Table">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_Adı" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="P_Soyadı" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="P_Maas_Bilgi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="P_Telefon" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="P_G_Mail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="P_Adres" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="P_Egitim_Bilgi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="P_Baslama_Tarihi" Type="date" Nullable="false" />
+          <Property Name="P_Sifre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Urun_Table">
+          <Key>
+            <PropertyRef Name="U_Barkod" />
+          </Key>
+          <Property Name="U_Stok" Type="int" Nullable="false" />
+          <Property Name="U_Marka" Type="nvarchar" MaxLength="50" />
+          <Property Name="U_Fiyat" Type="int" Nullable="false" />
+          <Property Name="U_Acıklama" Type="nvarchar" MaxLength="400" />
+          <Property Name="U_Barkod" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Alisveris_Kart_Id">
+          <End Role="Kart_Table" Type="Self.Kart_Table" Multiplicity="1" />
+          <End Role="Alisveris_Table" Type="Self.Alisveris_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kart_Table">
+              <PropertyRef Name="K_Id" />
+            </Principal>
+            <Dependent Role="Alisveris_Table">
+              <PropertyRef Name="A_K_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alisveris_T_KBS">
+          <End Role="Kasa_Bilgi_Table" Type="Self.Kasa_Bilgi_Table" Multiplicity="1" />
+          <End Role="Alisveris_Table" Type="Self.Alisveris_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kasa_Bilgi_Table">
+              <PropertyRef Name="KB_Kasa_Id" />
+            </Principal>
+            <Dependent Role="Alisveris_Table">
+              <PropertyRef Name="A_Kas_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alisveris_U_Barkod">
+          <End Role="Urun_Table" Type="Self.Urun_Table" Multiplicity="0..1" />
+          <End Role="Alisveris_Table" Type="Self.Alisveris_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urun_Table">
+              <PropertyRef Name="U_Barkod" />
+            </Principal>
+            <Dependent Role="Alisveris_Table">
+              <PropertyRef Name="A_U_Barkod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kasa_Personel_Id">
+          <End Role="Personel_Table" Type="Self.Personel_Table" Multiplicity="1" />
+          <End Role="Kasa_Table" Type="Self.Kasa_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel_Table">
+              <PropertyRef Name="P_Id" />
+            </Principal>
+            <Dependent Role="Kasa_Table">
+              <PropertyRef Name="Kas_P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kasa_Table_KBT">
+          <End Role="Kasa_Bilgi_Table" Type="Self.Kasa_Bilgi_Table" Multiplicity="0..1" />
+          <End Role="Kasa_Table" Type="Self.Kasa_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kasa_Bilgi_Table">
+              <PropertyRef Name="KB_Kasa_Id" />
+            </Principal>
+            <Dependent Role="Kasa_Table">
+              <PropertyRef Name="Kas_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Alim_U_Barkod">
+          <End Role="Urun_Table" Type="Self.Urun_Table" Multiplicity="0..1" />
+          <End Role="Market_Alim_Table" Type="Self.Market_Alim_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urun_Table">
+              <PropertyRef Name="U_Barkod" />
+            </Principal>
+            <Dependent Role="Market_Alim_Table">
+              <PropertyRef Name="Mat_U_Barkod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Magaza_DBModelStoreContainer">
+          <EntitySet Name="Alisveris_Table" EntityType="Self.Alisveris_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kart_Table" EntityType="Self.Kart_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kasa_Bilgi_Table" EntityType="Self.Kasa_Bilgi_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Market_Alim_Table" EntityType="Self.Market_Alim_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personel_Table" EntityType="Self.Personel_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urun_Table" EntityType="Self.Urun_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kasa_Table" EntityType="Self.Kasa_Table" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Kasa_Table].[Kas_P_Id] AS [Kas_P_Id], 
+    [Kasa_Table].[Kas_Toplam_Hesap] AS [Kas_Toplam_Hesap], 
+    [Kasa_Table].[Kas_Tarih] AS [Kas_Tarih], 
+    [Kasa_Table].[Kas_Id] AS [Kas_Id], 
+    [Kasa_Table].[Kas_Durum] AS [Kas_Durum]
+    FROM [dbo].[Kasa_Table] AS [Kasa_Table]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Alisveris_Kart_Id" Association="Self.FK_Alisveris_Kart_Id">
+            <End Role="Kart_Table" EntitySet="Kart_Table" />
+            <End Role="Alisveris_Table" EntitySet="Alisveris_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alisveris_T_KBS" Association="Self.FK_Alisveris_T_KBS">
+            <End Role="Kasa_Bilgi_Table" EntitySet="Kasa_Bilgi_Table" />
+            <End Role="Alisveris_Table" EntitySet="Alisveris_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alisveris_U_Barkod" Association="Self.FK_Alisveris_U_Barkod">
+            <End Role="Urun_Table" EntitySet="Urun_Table" />
+            <End Role="Alisveris_Table" EntitySet="Alisveris_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kasa_Personel_Id" Association="Self.FK_Kasa_Personel_Id">
+            <End Role="Personel_Table" EntitySet="Personel_Table" />
+            <End Role="Kasa_Table" EntitySet="Kasa_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kasa_Table_KBT" Association="Self.FK_Kasa_Table_KBT">
+            <End Role="Kasa_Bilgi_Table" EntitySet="Kasa_Bilgi_Table" />
+            <End Role="Kasa_Table" EntitySet="Kasa_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Alim_U_Barkod" Association="Self.FK_Market_Alim_U_Barkod">
+            <End Role="Urun_Table" EntitySet="Urun_Table" />
+            <End Role="Market_Alim_Table" EntitySet="Market_Alim_Table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Magaza_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alisveris_Table">
+          <Key>
+            <PropertyRef Name="A_Id" />
+          </Key>
+          <Property Name="A_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="A_K_Id" Type="Int32" Nullable="false" />
+          <Property Name="A_Kas_Id" Type="Int32" Nullable="false" />
+          <Property Name="A_U_Barkod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kart_Table" Relationship="Self.FK_Alisveris_Kart_Id" FromRole="Alisveris_Table" ToRole="Kart_Table" />
+          <NavigationProperty Name="Kasa_Bilgi_Table" Relationship="Self.FK_Alisveris_T_KBS" FromRole="Alisveris_Table" ToRole="Kasa_Bilgi_Table" />
+          <NavigationProperty Name="Urun_Table" Relationship="Self.FK_Alisveris_U_Barkod" FromRole="Alisveris_Table" ToRole="Urun_Table" />
+        </EntityType>
+        <EntityType Name="Kart_Table">
+          <Key>
+            <PropertyRef Name="K_Id" />
+          </Key>
+          <Property Name="K_Id" Type="Int32" Nullable="false" />
+          <Property Name="K_Bakiye" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="K_Sahibi_Adı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="K_Sahibi_Soyadı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="K_Sahibi_Telefon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="K_Sahibi_Adres" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="K_Sahibi_E_Posta" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="K_Sifre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Alisveris_Table" Relationship="Self.FK_Alisveris_Kart_Id" FromRole="Kart_Table" ToRole="Alisveris_Table" />
+        </EntityType>
+        <EntityType Name="Kasa_Bilgi_Table">
+          <Key>
+            <PropertyRef Name="KB_Kasa_Id" />
+          </Key>
+          <Property Name="KB_Kasa_Id" Type="Int32" Nullable="false" />
+          <Property Name="KB_Kasa_Durum" Type="Int32" />
+          <NavigationProperty Name="Alisveris_Table" Relationship="Self.FK_Alisveris_T_KBS" FromRole="Kasa_Bilgi_Table" ToRole="Alisveris_Table" />
+          <NavigationProperty Name="Kasa_Table" Relationship="Self.FK_Kasa_Table_KBT" FromRole="Kasa_Bilgi_Table" ToRole="Kasa_Table" />
+        </EntityType>
+        <EntityType Name="Market_Alim_Table">
+          <Key>
+            <PropertyRef Name="Mat_Id" />
+          </Key>
+          <Property Name="Mat_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mat_Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Mat_Miktar" Type="Int32" Nullable="false" />
+          <Property Name="Mat_Ucret" Type="Int32" Nullable="false" />
+          <Property Name="Mat_U_Barkod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Urun_Table" Relationship="Self.FK_Market_Alim_U_Barkod" FromRole="Market_Alim_Table" ToRole="Urun_Table" />
+        </EntityType>
+        <EntityType Name="Personel_Table">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_Adı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Soyadı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Maas_Bilgi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Telefon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_G_Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Adres" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Egitim_Bilgi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Baslama_Tarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="P_Sifre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kasa_Table" Relationship="Self.FK_Kasa_Personel_Id" FromRole="Personel_Table" ToRole="Kasa_Table" />
+        </EntityType>
+        <EntityType Name="Urun_Table">
+          <Key>
+            <PropertyRef Name="U_Barkod" />
+          </Key>
+          <Property Name="U_Stok" Type="Int32" Nullable="false" />
+          <Property Name="U_Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="U_Fiyat" Type="Int32" Nullable="false" />
+          <Property Name="U_Acıklama" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="U_Barkod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alisveris_Table" Relationship="Self.FK_Alisveris_U_Barkod" FromRole="Urun_Table" ToRole="Alisveris_Table" />
+          <NavigationProperty Name="Market_Alim_Table" Relationship="Self.FK_Market_Alim_U_Barkod" FromRole="Urun_Table" ToRole="Market_Alim_Table" />
+        </EntityType>
+        <EntityType Name="Kasa_Table">
+          <Key>
+            <PropertyRef Name="Kas_P_Id" />
+            <PropertyRef Name="Kas_Toplam_Hesap" />
+            <PropertyRef Name="Kas_Tarih" />
+          </Key>
+          <Property Name="Kas_P_Id" Type="Int32" Nullable="false" />
+          <Property Name="Kas_Toplam_Hesap" Type="Int32" Nullable="false" />
+          <Property Name="Kas_Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Kas_Id" Type="Int32" />
+          <Property Name="Kas_Durum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kasa_Bilgi_Table" Relationship="Self.FK_Kasa_Table_KBT" FromRole="Kasa_Table" ToRole="Kasa_Bilgi_Table" />
+          <NavigationProperty Name="Personel_Table" Relationship="Self.FK_Kasa_Personel_Id" FromRole="Kasa_Table" ToRole="Personel_Table" />
+        </EntityType>
+        <Association Name="FK_Alisveris_Kart_Id">
+          <End Role="Kart_Table" Type="Self.Kart_Table" Multiplicity="1" />
+          <End Role="Alisveris_Table" Type="Self.Alisveris_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kart_Table">
+              <PropertyRef Name="K_Id" />
+            </Principal>
+            <Dependent Role="Alisveris_Table">
+              <PropertyRef Name="A_K_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alisveris_T_KBS">
+          <End Role="Kasa_Bilgi_Table" Type="Self.Kasa_Bilgi_Table" Multiplicity="1" />
+          <End Role="Alisveris_Table" Type="Self.Alisveris_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kasa_Bilgi_Table">
+              <PropertyRef Name="KB_Kasa_Id" />
+            </Principal>
+            <Dependent Role="Alisveris_Table">
+              <PropertyRef Name="A_Kas_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alisveris_U_Barkod">
+          <End Role="Urun_Table" Type="Self.Urun_Table" Multiplicity="0..1" />
+          <End Role="Alisveris_Table" Type="Self.Alisveris_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urun_Table">
+              <PropertyRef Name="U_Barkod" />
+            </Principal>
+            <Dependent Role="Alisveris_Table">
+              <PropertyRef Name="A_U_Barkod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kasa_Table_KBT">
+          <End Role="Kasa_Bilgi_Table" Type="Self.Kasa_Bilgi_Table" Multiplicity="0..1" />
+          <End Role="Kasa_Table" Type="Self.Kasa_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kasa_Bilgi_Table">
+              <PropertyRef Name="KB_Kasa_Id" />
+            </Principal>
+            <Dependent Role="Kasa_Table">
+              <PropertyRef Name="Kas_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Market_Alim_U_Barkod">
+          <End Role="Urun_Table" Type="Self.Urun_Table" Multiplicity="0..1" />
+          <End Role="Market_Alim_Table" Type="Self.Market_Alim_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urun_Table">
+              <PropertyRef Name="U_Barkod" />
+            </Principal>
+            <Dependent Role="Market_Alim_Table">
+              <PropertyRef Name="Mat_U_Barkod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kasa_Personel_Id">
+          <End Role="Personel_Table" Type="Self.Personel_Table" Multiplicity="1" />
+          <End Role="Kasa_Table" Type="Self.Kasa_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel_Table">
+              <PropertyRef Name="P_Id" />
+            </Principal>
+            <Dependent Role="Kasa_Table">
+              <PropertyRef Name="Kas_P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Magaza_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alisveris_Table" EntityType="Self.Alisveris_Table" />
+          <EntitySet Name="Kart_Table" EntityType="Self.Kart_Table" />
+          <EntitySet Name="Kasa_Bilgi_Table" EntityType="Self.Kasa_Bilgi_Table" />
+          <EntitySet Name="Market_Alim_Table" EntityType="Self.Market_Alim_Table" />
+          <EntitySet Name="Personel_Table" EntityType="Self.Personel_Table" />
+          <EntitySet Name="Urun_Table" EntityType="Self.Urun_Table" />
+          <EntitySet Name="Kasa_Table" EntityType="Self.Kasa_Table" />
+          <AssociationSet Name="FK_Alisveris_Kart_Id" Association="Self.FK_Alisveris_Kart_Id">
+            <End Role="Kart_Table" EntitySet="Kart_Table" />
+            <End Role="Alisveris_Table" EntitySet="Alisveris_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alisveris_T_KBS" Association="Self.FK_Alisveris_T_KBS">
+            <End Role="Kasa_Bilgi_Table" EntitySet="Kasa_Bilgi_Table" />
+            <End Role="Alisveris_Table" EntitySet="Alisveris_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alisveris_U_Barkod" Association="Self.FK_Alisveris_U_Barkod">
+            <End Role="Urun_Table" EntitySet="Urun_Table" />
+            <End Role="Alisveris_Table" EntitySet="Alisveris_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kasa_Table_KBT" Association="Self.FK_Kasa_Table_KBT">
+            <End Role="Kasa_Bilgi_Table" EntitySet="Kasa_Bilgi_Table" />
+            <End Role="Kasa_Table" EntitySet="Kasa_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Market_Alim_U_Barkod" Association="Self.FK_Market_Alim_U_Barkod">
+            <End Role="Urun_Table" EntitySet="Urun_Table" />
+            <End Role="Market_Alim_Table" EntitySet="Market_Alim_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kasa_Personel_Id" Association="Self.FK_Kasa_Personel_Id">
+            <End Role="Personel_Table" EntitySet="Personel_Table" />
+            <End Role="Kasa_Table" EntitySet="Kasa_Table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Magaza_DBModelStoreContainer" CdmEntityContainer="Magaza_DBEntities">
+          <EntitySetMapping Name="Alisveris_Table">
+            <EntityTypeMapping TypeName="Magaza_DBModel.Alisveris_Table">
+              <MappingFragment StoreEntitySet="Alisveris_Table">
+                <ScalarProperty Name="A_Id" ColumnName="A_Id" />
+                <ScalarProperty Name="A_K_Id" ColumnName="A_K_Id" />
+                <ScalarProperty Name="A_Kas_Id" ColumnName="A_Kas_Id" />
+                <ScalarProperty Name="A_U_Barkod" ColumnName="A_U_Barkod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kart_Table">
+            <EntityTypeMapping TypeName="Magaza_DBModel.Kart_Table">
+              <MappingFragment StoreEntitySet="Kart_Table">
+                <ScalarProperty Name="K_Id" ColumnName="K_Id" />
+                <ScalarProperty Name="K_Bakiye" ColumnName="K_Bakiye" />
+                <ScalarProperty Name="K_Sahibi_Adı" ColumnName="K_Sahibi_Adı" />
+                <ScalarProperty Name="K_Sahibi_Soyadı" ColumnName="K_Sahibi_Soyadı" />
+                <ScalarProperty Name="K_Sahibi_Telefon" ColumnName="K_Sahibi_Telefon" />
+                <ScalarProperty Name="K_Sahibi_Adres" ColumnName="K_Sahibi_Adres" />
+                <ScalarProperty Name="K_Sahibi_E_Posta" ColumnName="K_Sahibi_E_Posta" />
+                <ScalarProperty Name="K_Sifre" ColumnName="K_Sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kasa_Bilgi_Table">
+            <EntityTypeMapping TypeName="Magaza_DBModel.Kasa_Bilgi_Table">
+              <MappingFragment StoreEntitySet="Kasa_Bilgi_Table">
+                <ScalarProperty Name="KB_Kasa_Id" ColumnName="KB_Kasa_Id" />
+                <ScalarProperty Name="KB_Kasa_Durum" ColumnName="KB_Kasa_Durum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Market_Alim_Table">
+            <EntityTypeMapping TypeName="Magaza_DBModel.Market_Alim_Table">
+              <MappingFragment StoreEntitySet="Market_Alim_Table">
+                <ScalarProperty Name="Mat_Id" ColumnName="Mat_Id" />
+                <ScalarProperty Name="Mat_Tarih" ColumnName="Mat_Tarih" />
+                <ScalarProperty Name="Mat_Miktar" ColumnName="Mat_Miktar" />
+                <ScalarProperty Name="Mat_Ucret" ColumnName="Mat_Ucret" />
+                <ScalarProperty Name="Mat_U_Barkod" ColumnName="Mat_U_Barkod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personel_Table">
+            <EntityTypeMapping TypeName="Magaza_DBModel.Personel_Table">
+              <MappingFragment StoreEntitySet="Personel_Table">
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="P_Adı" ColumnName="P_Adı" />
+                <ScalarProperty Name="P_Soyadı" ColumnName="P_Soyadı" />
+                <ScalarProperty Name="P_Maas_Bilgi" ColumnName="P_Maas_Bilgi" />
+                <ScalarProperty Name="P_Telefon" ColumnName="P_Telefon" />
+                <ScalarProperty Name="P_G_Mail" ColumnName="P_G_Mail" />
+                <ScalarProperty Name="P_Adres" ColumnName="P_Adres" />
+                <ScalarProperty Name="P_Egitim_Bilgi" ColumnName="P_Egitim_Bilgi" />
+                <ScalarProperty Name="P_Baslama_Tarihi" ColumnName="P_Baslama_Tarihi" />
+                <ScalarProperty Name="P_Sifre" ColumnName="P_Sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urun_Table">
+            <EntityTypeMapping TypeName="Magaza_DBModel.Urun_Table">
+              <MappingFragment StoreEntitySet="Urun_Table">
+                <ScalarProperty Name="U_Stok" ColumnName="U_Stok" />
+                <ScalarProperty Name="U_Marka" ColumnName="U_Marka" />
+                <ScalarProperty Name="U_Fiyat" ColumnName="U_Fiyat" />
+                <ScalarProperty Name="U_Acıklama" ColumnName="U_Acıklama" />
+                <ScalarProperty Name="U_Barkod" ColumnName="U_Barkod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kasa_Table">
+            <EntityTypeMapping TypeName="Magaza_DBModel.Kasa_Table">
+              <MappingFragment StoreEntitySet="Kasa_Table">
+                <ScalarProperty Name="Kas_P_Id" ColumnName="Kas_P_Id" />
+                <ScalarProperty Name="Kas_Toplam_Hesap" ColumnName="Kas_Toplam_Hesap" />
+                <ScalarProperty Name="Kas_Tarih" ColumnName="Kas_Tarih" />
+                <ScalarProperty Name="Kas_Id" ColumnName="Kas_Id" />
+                <ScalarProperty Name="Kas_Durum" ColumnName="Kas_Durum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

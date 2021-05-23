@@ -1,0 +1,31 @@
+﻿
+<h2 class="text-center">Mağazamızda Bulunan Ürünlerimiz</h2>
+
+<div class="alert alert-success text-center" role="alert">
+    Mağazamızda <strong>@ViewBag.UrunSayisi</strong> adet ürün bulunmaktadır.
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Ürün Adı</th>
+            <th scope="col">Ürün Fiyatı</th>
+            <th scope="col">Açıklaması</th>
+            <th scope="col">Stok</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var urun in Model)
+        {
+            if (urun.U_Stok > 0)
+            {
+                <tr>
+                    <th scope="row">@urun.U_Marka</th>
+                    <td>@urun.U_Fiyat TL</td>
+                    <td>@urun.U_Acıklama</td>
+                    <td>@urun.U_Stok</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

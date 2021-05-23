@@ -1,0 +1,35 @@
+﻿@model yenisonproje.Models.Kart_Table 
+@{
+    ViewBag.Title = "Giriş";
+}
+<h2>@ViewBag.Hata</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+<div class="from-hortizontal">
+    <h3>Oturum açmak için Kart numaranızı ve Şifrenizi Giriniz.</h3>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.K_Id, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.K_Id, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.K_Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.K_Sifre, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.K_Sifre, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.K_Sifre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Giriş Yap" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
+

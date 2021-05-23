@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5046b1b11fb84eff92fa834c501e2942" Name="Diagram1">
+        <EntityTypeShape EntityType="Magaza_DBModel.Alisveris_Table" Width="1.5" PointX="3.375" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Magaza_DBModel.Kart_Table" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Magaza_DBModel.Kasa_Bilgi_Table" Width="1.5" PointX="5.625" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Magaza_DBModel.Market_Alim_Table" Width="1.5" PointX="1" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Magaza_DBModel.Personel_Table" Width="1.5" PointX="8" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Magaza_DBModel.Urun_Table" Width="1.5" PointX="3.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Magaza_DBModel.Kasa_Table" Width="1.5" PointX="5.75" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="Magaza_DBModel.FK_Alisveris_Kart_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Magaza_DBModel.FK_Alisveris_T_KBS" ManuallyRouted="false" />
+        <AssociationConnector Association="Magaza_DBModel.FK_Alisveris_U_Barkod" ManuallyRouted="false" />
+        <AssociationConnector Association="Magaza_DBModel.FK_Kasa_Table_KBT" ManuallyRouted="false" />
+        <AssociationConnector Association="Magaza_DBModel.FK_Market_Alim_U_Barkod" ManuallyRouted="false" />
+        <AssociationConnector Association="Magaza_DBModel.FK_Kasa_Personel_Id" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
